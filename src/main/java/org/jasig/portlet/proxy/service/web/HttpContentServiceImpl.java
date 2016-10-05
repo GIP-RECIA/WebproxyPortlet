@@ -18,6 +18,10 @@
  */
 package org.jasig.portlet.proxy.service.web;
 
+import javax.annotation.Resource;
+import javax.portlet.PortletPreferences;
+import javax.portlet.PortletRequest;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -26,24 +30,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
 import org.jasig.portlet.proxy.service.GenericContentResponseImpl;
 import org.jasig.portlet.proxy.service.IContentService;
 import org.jasig.portlet.proxy.service.IFormField;
@@ -131,7 +129,7 @@ public class HttpContentServiceImpl implements IContentService<HttpContentReques
 
             // get an HttpClient appropriate for this user and portlet instance
             // and set any basic auth credentials, if applicable
-            final AbstractHttpClient httpclient = httpClientService.getHttpClient(request);
+            final HttpClient httpclient = httpClientService.getHttpClient(request);
 
             // create the request
             final HttpUriRequest httpRequest = getHttpRequest(proxyRequest, request);
@@ -140,8 +138,7 @@ public class HttpContentServiceImpl implements IContentService<HttpContentReques
             }
 
             // execute the request
-            final HttpContext context = new BasicHttpContext();
-            final HttpResponse response = httpclient.execute(httpRequest, context);
+            final HttpResponse response = httpclient.execute(httpRequest, proxyRequest.getHttpContext());
             final HttpEntity entity = response.getEntity();
 
             // create the response object and set the content stream
@@ -154,7 +151,7 @@ public class HttpContentServiceImpl implements IContentService<HttpContentReques
             }
 
             // set the final URL of the response in case it was redirected
-            String finalUrl = (String) context.getAttribute(RedirectTrackingResponseInterceptor.FINAL_URL_KEY);
+            String finalUrl = (String) proxyRequest.getHttpContext().getAttribute(RedirectTrackingResponseInterceptor.FINAL_URL_KEY);
             if (finalUrl == null) {
                 finalUrl = proxyRequest.getProxiedLocation();
             }
