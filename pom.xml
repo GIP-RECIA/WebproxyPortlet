@@ -10,7 +10,7 @@
     <groupId>org.jasig.portlet.proxy</groupId>
     <artifactId>WebProxyPortlet</artifactId>
     <packaging>war</packaging>
-    <version>2.2.2-SNAPSHOT</version>
+    <version>2.2.2-esco-2</version>
     <name>WebProxyPortlet</name>
     <description>
         Collection of portlets for proxying external content
@@ -20,7 +20,7 @@
         <connection>scm:git:git://github.com/GIP-RECIA/WebproxyPortlet.git</connection>
         <developerConnection>scm:git:git@github.com:GIP-RECIA/WebproxyPortlet.git</developerConnection>
         <url>https://github.com/GIP-RECIA/WebproxyPortlet</url>
-        <tag>HEAD</tag>
+        <tag>WebProxyPortlet-2.2.2-esco-2</tag>
   </scm>
 
     <issueManagement>
