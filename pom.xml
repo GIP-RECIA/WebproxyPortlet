@@ -17,16 +17,28 @@
     </description>
 
     <scm>
-        <connection>scm:git:git://github.com/Jasig/WebproxyPortlet.git</connection>
-        <developerConnection>scm:git:git@github.com:Jasig/WebproxyPortlet.git</developerConnection>
-        <url>https://github.com/Jasig/WebproxyPortlet</url>
-      <tag>HEAD</tag>
+        <connection>scm:git:git://github.com/GIP-RECIA/WebproxyPortlet.git</connection>
+        <developerConnection>scm:git:git@github.com:GIP-RECIA/WebproxyPortlet.git</developerConnection>
+        <url>https://github.com/GIP-RECIA/WebproxyPortlet</url>
+        <tag>HEAD</tag>
   </scm>
 
     <issueManagement>
         <url>${jasig-issues-base}/WPP</url>
         <system>${jasig-issues-system}</system>
     </issueManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>esco-releases</id>
+            <url>http://www.esco-portail.org/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>esco-snapshots</id>
+            <url>http://www.esco-portail.org/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 
     <!-- Dependency Version Properties -->
     <properties>
@@ -351,6 +363,7 @@
                         <exclude>src/test/resources/test.json</exclude>
                         <exclude>src/main/resources/test-content/sample.json</exclude>
                         <exclude>src/main/webapp/scripts/jquery-1.8.3.min.js</exclude>
+                        <exclude>src/main/webapp/META-INF/maven/**</exclude>
                         <exclude>target/**</exclude>
                         <exclude>pom.xml.*</exclude>
                         <exclude>release.properties</exclude>
